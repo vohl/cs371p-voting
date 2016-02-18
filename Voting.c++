@@ -56,7 +56,21 @@ void voting_read_args (istream& r, int& i){
 */
 
 void voting_read_cand (istream& r, int& i){
-}
+  int i = 0;
+  string s;
+
+  // Reading the number of candidates for an election
+  getline(r, s);
+  stringstream ss(s);
+  ss >> j;
+
+  // array of strings that represents the name of the candidates
+  while(i < j){
+    getline(r, s);
+    name[i] = s;
+    ++i;}
+  assert(j > 0);
+  assert(j < 21);}
 
 //---------------------------
 // voting_read_ballot
@@ -102,6 +116,4 @@ void voting_solve(istream& r, ostream& w){
   // Number of voter cards/ballots
   int totalVotes;
 
-  voting_read_args(r, cases);
-
-  w << cases << endl;}
+  voting_read_args(r, cases);}
