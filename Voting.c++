@@ -113,8 +113,66 @@ bool voting_read_ballot (istream& r){
   Calculates the winner of a given election
 */
 
-string voting_eval (int& numVotes, int& cand){
-  return "";}
+string voting_eval (int& numV, int& cand){
+  int min = 1001;
+  int max = 0;
+  int count = 0;
+  string s = "";
+  int i;
+
+  // if there are no ballots to for the candidate
+  if(numV == 0){
+    for(int i = 0; i < cand; ++i){
+      if(count > 0){
+        s += "\n" + name[i];}
+      else{
+        s += name[i];}
+      ++count;}
+    return s;}
+
+  while(1){
+    // finding the min and max in an array
+    for(int elem = 0; elem < cand; ++elem){
+      // auto win if this case is seen, candidate with more then half the votes
+      if(votes[elem] > (numV/2)){
+        return name[elem];}
+      // counting votes
+      else{
+        if(votes[elem] < min && votes[elem] > 0){
+          min = votes[elem];}
+        if(votes[elem] > max){
+          max = votes[elem];}}}
+
+    if(max == min){
+      // We have a tie for winner; multimap contains keys of corresponding to winners
+      // very bad solution
+      s = "";
+      for(int win = 0; win < cand; ++win){
+        if(votes[win] > 0){
+          if(count > 0){
+            s += "\n" + name[win];}
+          else{
+            s += name[win];}
+          ++count;}}
+      return s;}
+
+
+    //Fucking Brilliant code *Please pronounce this is a british accent*
+    for(int elem = 0; elem < cand; ++elem){
+      if(min == votes[elem]){
+        multimap<int, string>::iterator it;
+        for(it = ballot_list.equal_range(elem + 1).first; it != ballot_list.equal_range(elem + 1).second; ++it){
+          s = (*it).second;
+          stringstream ss(s);
+          ss >> i;
+          while(votes[i - 1] <= min){
+            ss >> i;}
+          getline(ss, s);
+          ballot_list.insert(pair<int, string>(i, s));
+          ++votes[i - 1];}
+        ballot_list.erase(elem + 1);
+        votes[elem] = 0;}}
+  min = 1001;}}
 
 //------------------
 // voting_solve
@@ -144,9 +202,9 @@ void voting_solve(istream& r, ostream& w){
       ++totalVotes;}
     // TODO: Compute the winner in here
     if(cases == 1){
-    }
+      w << voting_eval(totalVotes, numCand) << endl;}
     else{
-    }
+      w << voting_eval(totalVotes, numCand) << endl << endl;}
 
     // reset my data structures for the next election
     for(int i = 0; i < 20; ++i){
