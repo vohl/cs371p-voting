@@ -34,7 +34,15 @@ multimap<int, string> ballot_list;
 */
 
 void voting_read_args (istream& r, int& i){
-}
+  string s;
+
+  // Stripping off the first line in the input
+  // How many elections are we having???
+  getline(r, s);
+  stringstream ss(s);
+  ss >> i;
+  getline(r, s);
+  assert(i > 0);}
 
 //-------------------------
 // voting_read_cand
@@ -87,4 +95,13 @@ string voting_eval (int& numVotes, int& cand){
 */
 
 void voting_solve(istream& r, ostream& w){
-}
+  // Number of different elections in input
+  int cases;
+  // Number of Candidates in an election
+  int numCand;
+  // Number of voter cards/ballots
+  int totalVotes;
+
+  voting_read_args(r, cases);
+
+  w << cases << endl;}
