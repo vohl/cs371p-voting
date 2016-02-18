@@ -1,0 +1,8 @@
+#gitignore for voting project
+
+*.gcda
+*.gcno
+*.gcov
+
+latex
+Doxyfile
