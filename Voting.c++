@@ -84,7 +84,24 @@ void voting_read_cand (istream& r, int& i){
 */
 
 bool voting_read_ballot (istream& r){
-  return true;}
+  int i;
+  string s;
+
+  // Reading ballots
+  getline(r, s);
+  stringstream ss(s);
+
+  if(s == ""){
+    return false;}
+  else{
+    ss >> i;
+    getline (ss, s);
+    // inserting pairs of ballots and who the ballot counts to in a list.
+    // using an int to represent the index of a candidates name in the array, and determining if
+    // that ballot goes to them or not
+    ballot_list.insert(pair<int, string>(i, s));
+    ++votes[i-1];
+    return true;}}
 
 //-----------------
 // voting_eval
@@ -116,4 +133,30 @@ void voting_solve(istream& r, ostream& w){
   // Number of voter cards/ballots
   int totalVotes;
 
-  voting_read_args(r, cases);}
+  voting_read_args(r, cases);
+
+  // while we still haves cases left in stdin compute the winner in tthe next upcoming election
+  while(cases > 0){
+    voting_read_cand(r, numCand);
+    totalVotes = 0;
+    // For this election read all the ballots into my multimap
+    while(voting_read_ballot(r)){
+      ++totalVotes;}
+    // TODO: Compute the winner in here
+    if(cases == 1){
+    }
+    else{
+    }
+
+    // reset my data structures for the next election
+    for(int i = 0; i < 20; ++i){
+      votes[i] = 0;
+      name[i] = "";}
+
+    ballot_list.clear();
+
+    // one less case left
+    --cases;
+
+    // Can't have more than 1000 voter cards
+    assert(totalVotes < 1001);}}
