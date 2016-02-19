@@ -55,7 +55,7 @@ void voting_read_args (istream& r, int& i){
   sets data for the candidate array
 */
 
-void voting_read_cand (istream& r, int& i){
+void voting_read_cand (istream& r, int& j){
   int i = 0;
   string s;
 
