@@ -69,7 +69,7 @@ status:
 test: RunVoting.tmp TestVoting.tmp
 
 Voting-tests:
-	git clone https://github.com/cs371p-spring-2016/Voting-tests.git
+	git clone https://github.com/cs371p-spring-2016/voting-tests.git
 
 html: Doxyfile Voting.h Voting.c++ RunVoting.c++ TestVoting.c++
 	doxygen Doxyfile
