@@ -116,18 +116,13 @@ bool voting_read_ballot (istream& r){
 string voting_eval (int& numV, int& cand){
   int min = 1001;
   int max = 0;
-  int count = 0;
   string s = "";
   int i;
 
   // if there are no ballots to for the candidate
   if(numV == 0){
     for(int i = 0; i < cand; ++i){
-      if(count > 0){
-        s += "\n" + name[i];}
-      else{
-        s += name[i];}
-      ++count;}
+      s += name[i] + "\n";}
     return s;}
 
   while(1){
@@ -135,7 +130,7 @@ string voting_eval (int& numV, int& cand){
     for(int elem = 0; elem < cand; ++elem){
       // auto win if this case is seen, candidate with more then half the votes
       if(votes[elem] > (numV/2)){
-        return name[elem];}
+        return name[elem] + "\n";}
       // counting votes
       else{
         if(votes[elem] < min && votes[elem] > 0){
@@ -149,11 +144,7 @@ string voting_eval (int& numV, int& cand){
       s = "";
       for(int win = 0; win < cand; ++win){
         if(votes[win] > 0){
-          if(count > 0){
-            s += "\n" + name[win];}
-          else{
-            s += name[win];}
-          ++count;}}
+          s += name[win] + "\n";}}
       return s;}
 
 
@@ -202,9 +193,10 @@ void voting_solve(istream& r, ostream& w){
       ++totalVotes;}
     // TODO: Compute the winner in here
     if(cases == 1){
-      w << voting_eval(totalVotes, numCand) << endl;}
+      string huh = voting_eval(totalVotes, numCand);
+      w << huh.substr(0, huh.length() - 1);}
     else{
-      w << voting_eval(totalVotes, numCand) << endl << endl;}
+      w << voting_eval(totalVotes, numCand) << "\n";}
 
     // reset my data structures for the next election
     for(int i = 0; i < 20; ++i){
