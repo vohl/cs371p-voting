@@ -1,6 +1,6 @@
 FILES :=                              \
     .travis.yml                       \
-    Voting-tests/acv563-RunVoting.in
+    Voting-tests/acv563-RunVoting.in   \
     Voting-tests/acv563-RunVoting.out  \
     Voting-tests/acv563-TestVoting.c++ \
     Voting-tests/acv563-TestVoting.out \
