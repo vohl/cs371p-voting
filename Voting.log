@@ -1,0 +1,65 @@
+commit 1022d46157763f0d448d56d38201faeab184b7b3
+Author: Andrew Vohl <vohl0803@cs.utexas.edu>
+Date:   Thu Feb 18 19:32:31 2016 -0600
+
+    closes #16, closes #15, closes #8, AND closes #9
+
+commit 3d02bc51b240144495644c865506464c57a28a54
+Author: vohl <acvohl@gmail.com>
+Date:   Thu Feb 18 19:04:58 2016 -0600
+
+    fix the makefile, maybe
+
+commit 42e8ae1bbf92c076a22e1d294fca7119113e5078
+Author: vohl <acvohl@gmail.com>
+Date:   Thu Feb 18 18:54:03 2016 -0600
+
+    fix #6, fix #13
+
+commit f3e9cbe0e1d2e887e95e9223169cef1c652fba30
+Author: vohl <acvohl@gmail.com>
+Date:   Thu Feb 18 17:54:16 2016 -0600
+
+    Should be done with all the methods
+
+commit d908521ae0c7b24f730d79fd3cb66354ca36f87f
+Author: vohl <acvohl@gmail.com>
+Date:   Thu Feb 18 17:19:57 2016 -0600
+
+    Getting there, little more left to do
+
+commit 90900748ea06d2a97340747f9195d9c9f7e82e62
+Author: vohl <acvohl@gmail.com>
+Date:   Thu Feb 18 16:53:07 2016 -0600
+
+    Reading candidates into an array
+
+commit 984ba4ed9781bc7492b6db6050019a758addeafe
+Author: vohl <acvohl@gmail.com>
+Date:   Thu Feb 18 16:38:28 2016 -0600
+
+    Structure and reading. fix #1, fix #2, fix #3, fix #5, fix #7,
+
+commit fa42ed408deb676a4d014d6435fe5cd4158f624c
+Author: vohl <acvohl@gmail.com>
+Date:   Thu Feb 18 14:41:22 2016 -0600
+
+    Just commiting the first commit
+
+commit 17a2fcbe4cfb071f8a57fc5a9ee3db1e44ffa690
+Author: Andrew Vohl <acvohl@gmail.com>
+Date:   Wed Feb 17 00:57:00 2016 -0600
+
+    Update README.md
+
+commit 06b1aa9d82aeef67c527819f202cab63e1989341
+Author: Andrew Vohl <acvohl@gmail.com>
+Date:   Wed Feb 17 00:56:22 2016 -0600
+
+    Update README.md
+
+commit a2bbdc1518266aee96e7e60888c7760c96284ea2
+Author: Andrew Vohl <acvohl@gmail.com>
+Date:   Wed Feb 17 00:20:51 2016 -0600
+
+    Initial commit

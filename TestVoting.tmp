@@ -1,0 +1,65 @@
+==19258== Memcheck, a memory error detector
+==19258== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==19258== Using Valgrind-3.10.1 and LibVEX; rerun with -h for copyright info
+==19258== Command: ./TestVoting
+==19258== 
+Running main() from gtest_main.cc
+[==========] Running 15 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 15 tests from Voting
+[ RUN      ] Voting.read_args_1
+[       OK ] Voting.read_args_1 (19 ms)
+[ RUN      ] Voting.read_args_2
+[       OK ] Voting.read_args_2 (3 ms)
+[ RUN      ] Voting.read_args_3
+[       OK ] Voting.read_args_3 (2 ms)
+[ RUN      ] Voting.read_cand_1
+[       OK ] Voting.read_cand_1 (3 ms)
+[ RUN      ] Voting.read_cand_2
+[       OK ] Voting.read_cand_2 (3 ms)
+[ RUN      ] Voting.read_cand_3
+[       OK ] Voting.read_cand_3 (2 ms)
+[ RUN      ] Voting.read_ballot_1
+[       OK ] Voting.read_ballot_1 (12 ms)
+[ RUN      ] Voting.read_ballot_2
+[       OK ] Voting.read_ballot_2 (5 ms)
+[ RUN      ] Voting.read_ballot_3
+[       OK ] Voting.read_ballot_3 (3 ms)
+[ RUN      ] Voting.eval_1
+[       OK ] Voting.eval_1 (5 ms)
+[ RUN      ] Voting.eval_2
+[       OK ] Voting.eval_2 (4 ms)
+[ RUN      ] Voting.eval_3
+[       OK ] Voting.eval_3 (5 ms)
+[ RUN      ] Voting.solve_1
+[       OK ] Voting.solve_1 (11 ms)
+[ RUN      ] Voting.solve_2
+[       OK ] Voting.solve_2 (5 ms)
+[ RUN      ] Voting.solve_3
+[       OK ] Voting.solve_3 (4 ms)
+[----------] 15 tests from Voting (93 ms total)
+
+[----------] Global test environment tear-down
+[==========] 15 tests from 1 test case ran. (121 ms total)
+[  PASSED  ] 15 tests.
+==19258== 
+==19258== HEAP SUMMARY:
+==19258==     in use at exit: 0 bytes in 0 blocks
+==19258==   total heap usage: 598 allocs, 598 frees, 73,729 bytes allocated
+==19258== 
+==19258== All heap blocks were freed -- no leaks are possible
+==19258== 
+==19258== For counts of detected and suppressed errors, rerun with: -v
+==19258== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+File 'Voting.c++'
+Lines executed:81.18% of 85
+Branches executed:74.03% of 154
+Taken at least once:45.45% of 154
+Calls executed:57.84% of 102
+Creating 'Voting.c++.gcov'
+File 'TestVoting.c++'
+Lines executed:97.44% of 78
+Branches executed:70.87% of 412
+Taken at least once:35.68% of 412
+Calls executed:59.12% of 499
+Creating 'TestVoting.c++.gcov'
