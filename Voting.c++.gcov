@@ -1,0 +1,481 @@
+        -:    0:Source:Voting.c++
+        -:    0:Graph:Voting.gcno
+        -:    0:Data:Voting.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// -----------
+        -:    2:// includes
+        -:    3:// -----------
+        -:    4:
+        -:    5:#include <cassert>
+        -:    6:#include <iostream>
+        -:    7:#include <sstream>
+        -:    8:#include <string>
+        -:    9:#include <map>
+        -:   10:
+        -:   11:#include "Voting.h"
+        -:   12:
+        -:   13://----------------
+        -:   14://Global_Variables
+        -:   15://----------------
+        -:   16:
+        -:   17:using namespace std;
+        -:   18:/*array of names, (index + 1) represents the interger representation of the name on the voting ballot*/
+function __tcf_0 called 0 returned 0% blocks executed 0%
+        1:   19:string name[20];
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+branch  3 taken 95%
+branch  4 taken 5% (fallthrough)
+call    5 returned 100%
+branch  6 never executed
+branch  7 never executed
+call    8 never executed
+branch  9 never executed
+branch 10 never executed
+call   11 never executed
+        -:   20:/*array that holds the count of votes per person, (index + 1) is integer representation of the name*/
+        -:   21:int votes [20];
+        -:   22:/*Map's remainder of voting card to a name */
+        -:   23://cache
+        1:   24:multimap<int, string> ballot_list;
+call    0 returned 100%
+call    1 returned 100%
+        -:   25:
+        -:   26://-------------------------
+        -:   27:// voting_read_args
+        -:   28:// ------------------------
+        -:   29:
+        -:   30:/*
+        -:   31:  @param input stream
+        -:   32:  @param a reference to an int for future use by the caller
+        -:   33:  sets the int reference to equal what should be the number of elections as described by the input
+        -:   34:*/
+        -:   35:
+function _Z16voting_read_argsRSiRi called 9 returned 100% blocks executed 69%
+        9:   36:void voting_read_args (istream& r, int& i){
+        9:   37:  string s;
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+        -:   38:
+        -:   39:  // Stripping off the first line in the input
+        -:   40:  // How many elections are we having???
+        9:   41:  getline(r, s);
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+       18:   42:  stringstream ss(s);
+call    0 returned 100%
+call    1 returned 100%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0% (throw)
+call    4 returned 100%
+call    5 never executed
+        9:   43:  ss >> i;
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+        9:   44:  getline(r, s);
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+       18:   45:  assert(i > 0);}
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+call    2 never executed
+call    3 returned 100%
+call    4 never executed
+        -:   46:
+        -:   47://-------------------------
+        -:   48:// voting_read_cand
+        -:   49:// ------------------------
+        -:   50:
+        -:   51:/*
+        -:   52:  @param input stream
+        -:   53:  @param a reference to an int  for future use by the caller
+        -:   54:  sets the int reference to equal what should be the number of candidates for this election
+        -:   55:  sets data for the candidate array
+        -:   56:*/
+        -:   57:
+function _Z16voting_read_candRSiRi called 9 returned 100% blocks executed 73%
+        9:   58:void voting_read_cand (istream& r, int& j){
+        9:   59:  int i = 0;
+        9:   60:  string s;
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+        -:   61:
+        -:   62:  // Reading the number of candidates for an election
+        9:   63:  getline(r, s);
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+       18:   64:  stringstream ss(s);
+call    0 returned 100%
+call    1 returned 100%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0% (throw)
+call    4 returned 100%
+call    5 never executed
+        9:   65:  ss >> j;
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+        -:   66:
+        -:   67:  // array of strings that represents the name of the candidates
+       41:   68:  while(i < j){
+branch  0 taken 72%
+branch  1 taken 28% (fallthrough)
+       23:   69:    getline(r, s);
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+       23:   70:    name[i] = s;
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+       23:   71:    ++i;}
+        9:   72:  assert(j > 0);
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+call    2 never executed
+       18:   73:  assert(j < 21);}
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+call    2 never executed
+call    3 returned 100%
+call    4 never executed
+        -:   74:
+        -:   75://---------------------------
+        -:   76:// voting_read_ballot
+        -:   77:// --------------------------
+        -:   78:
+        -:   79:/*
+        -:   80:  @param input stream
+        -:   81:  reads the ballots into a multimap as a pair of int and a string
+        -:   82:  the int representing the lead person the ballot is for
+        -:   83:  the string representing the rest of the ballot
+        -:   84:*/
+        -:   85:
+function _Z18voting_read_ballotRSi called 19 returned 100% blocks executed 75%
+       19:   86:bool voting_read_ballot (istream& r){
+        -:   87:  int i;
+       19:   88:  string s;
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+        -:   89:
+        -:   90:  // Reading ballots
+       19:   91:  getline(r, s);
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+       38:   92:  stringstream ss(s);
+call    0 returned 100%
+call    1 returned 100%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0% (throw)
+call    4 returned 100%
+call    5 never executed
+        -:   93:
+       19:   94:  if(s == ""){
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+branch  3 taken 37% (fallthrough)
+branch  4 taken 63%
+        7:   95:    return false;}
+        -:   96:  else{
+       12:   97:    ss >> i;
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+       12:   98:    getline (ss, s);
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+        -:   99:    // inserting pairs of ballots and who the ballot counts to in a list.
+        -:  100:    // using an int to represent the index of a candidates name in the array, and determining if
+        -:  101:    // that ballot goes to them or not
+       12:  102:    ballot_list.insert(pair<int, string>(i, s));
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+call    3 returned 100%
+branch  4 taken 100% (fallthrough)
+branch  5 taken 0% (throw)
+call    6 returned 100%
+call    7 never executed
+       12:  103:    ++votes[i-1];
+       31:  104:    return true;}}
+call    0 returned 100%
+call    1 never executed
+        -:  105:
+        -:  106://-----------------
+        -:  107:// voting_eval
+        -:  108:// ----------------
+        -:  109:
+        -:  110:/*
+        -:  111:  @param a int reference for the totalVotes that we have
+        -:  112:  @param a int reference for the number of candidates
+        -:  113:  Calculates the winner of a given election
+        -:  114:*/
+        -:  115:
+function _Z11voting_evalRiS_ called 6 returned 100% blocks executed 46%
+        6:  116:string voting_eval (int& numV, int& cand){
+        6:  117:  int min = 1001;
+        6:  118:  int max = 0;
+        6:  119:  string s = "";
+call    0 returned 100%
+call    1 returned 100%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0% (throw)
+call    4 returned 100%
+        -:  120:  int i;
+        -:  121:
+        -:  122:  // if there are no ballots to for the candidate
+        6:  123:  if(numV == 0){
+branch  0 taken 50% (fallthrough)
+branch  1 taken 50%
+        8:  124:    for(int i = 0; i < cand; ++i){
+branch  0 taken 63%
+branch  1 taken 38% (fallthrough)
+        5:  125:      s += name[i] + "\n";}
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+call    3 returned 100%
+branch  4 taken 100% (fallthrough)
+branch  5 taken 0% (throw)
+call    6 returned 100%
+call    7 never executed
+        3:  126:    return s;}
+call    0 returned 100%
+        -:  127:
+        -:  128:  while(1){
+        -:  129:    // finding the min and max in an array
+        6:  130:    for(int elem = 0; elem < cand; ++elem){
+branch  0 taken 83%
+branch  1 taken 17% (fallthrough)
+        -:  131:      // auto win if this case is seen, candidate with more then half the votes
+        5:  132:      if(votes[elem] > (numV/2)){
+branch  0 taken 40% (fallthrough)
+branch  1 taken 60%
+        2:  133:        return name[elem] + "\n";}
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+        -:  134:      // counting votes
+        -:  135:      else{
+        3:  136:        if(votes[elem] < min && votes[elem] > 0){
+branch  0 taken 33% (fallthrough)
+branch  1 taken 67%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0%
+        1:  137:          min = votes[elem];}
+        3:  138:        if(votes[elem] > max){
+branch  0 taken 33% (fallthrough)
+branch  1 taken 67%
+        1:  139:          max = votes[elem];}}}
+        -:  140:
+        1:  141:    if(max == min){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        -:  142:      // We have a tie for winner; multimap contains keys of corresponding to winners
+        -:  143:      // very bad solution
+        1:  144:      s = "";
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+        4:  145:      for(int win = 0; win < cand; ++win){
+branch  0 taken 75%
+branch  1 taken 25% (fallthrough)
+        3:  146:        if(votes[win] > 0){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        3:  147:          s += name[win] + "\n";}}
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+call    3 returned 100%
+branch  4 taken 100% (fallthrough)
+branch  5 taken 0% (throw)
+call    6 returned 100%
+call    7 never executed
+        1:  148:      return s;}
+call    0 returned 100%
+        -:  149:
+        -:  150:
+        -:  151:    //Fucking Brilliant code *Please pronounce this is a british accent*
+    #####:  152:    for(int elem = 0; elem < cand; ++elem){
+branch  0 never executed
+branch  1 never executed
+    #####:  153:      if(min == votes[elem]){
+branch  0 never executed
+branch  1 never executed
+    #####:  154:        multimap<int, string>::iterator it;
+call    0 never executed
+    #####:  155:        for(it = ballot_list.equal_range(elem + 1).first; it != ballot_list.equal_range(elem + 1).second; ++it){
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+call    3 never executed
+call    4 never executed
+branch  5 never executed
+branch  6 never executed
+call    7 never executed
+branch  8 never executed
+branch  9 never executed
+    #####:  156:          s = (*it).second;
+call    0 never executed
+call    1 never executed
+branch  2 never executed
+branch  3 never executed
+    #####:  157:          stringstream ss(s);
+call    0 never executed
+call    1 never executed
+branch  2 never executed
+branch  3 never executed
+    #####:  158:          ss >> i;
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    #####:  159:          while(votes[i - 1] <= min){
+branch  0 never executed
+branch  1 never executed
+    #####:  160:            ss >> i;}
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    #####:  161:          getline(ss, s);
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    #####:  162:          ballot_list.insert(pair<int, string>(i, s));
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+call    3 never executed
+branch  4 never executed
+branch  5 never executed
+call    6 never executed
+call    7 never executed
+    #####:  163:          ++votes[i - 1];}
+call    0 never executed
+call    1 never executed
+    #####:  164:        ballot_list.erase(elem + 1);
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    #####:  165:        votes[elem] = 0;}}
+    #####:  166:  min = 1001;}}
+call    0 returned 100%
+call    1 never executed
+call    2 never executed
+        -:  167:
+        -:  168://------------------
+        -:  169:// voting_solve
+        -:  170:// ------------------
+        -:  171:
+        -:  172:/*
+        -:  173:  @param a reference to an input stream
+        -:  174:  @param s reference to an output stream
+        -:  175:*/
+        -:  176:
+function _Z12voting_solveRSiRSo called 3 returned 100% blocks executed 65%
+        3:  177:void voting_solve(istream& r, ostream& w){
+        -:  178:  // Number of different elections in input
+        -:  179:  int cases;
+        -:  180:  // Number of Candidates in an election
+        -:  181:  int numCand;
+        -:  182:  // Number of voter cards/ballots
+        -:  183:  int totalVotes;
+        -:  184:
+        3:  185:  voting_read_args(r, cases);
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+        -:  186:
+        -:  187:  // while we still haves cases left in stdin compute the winner in tthe next upcoming election
+        9:  188:  while(cases > 0){
+branch  0 taken 50%
+branch  1 taken 50% (fallthrough)
+        3:  189:    voting_read_cand(r, numCand);
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+        3:  190:    totalVotes = 0;
+        -:  191:    // For this election read all the ballots into my multimap
+       13:  192:    while(voting_read_ballot(r)){
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+branch  3 taken 70%
+branch  4 taken 30% (fallthrough)
+        7:  193:      ++totalVotes;}
+        -:  194:    // TODO: Compute the winner in here
+        3:  195:    if(cases == 1){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        3:  196:      string huh = voting_eval(totalVotes, numCand);
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+        3:  197:      w << huh.substr(0, huh.length() - 1);}
+call    0 returned 100%
+call    1 returned 100%
+branch  2 taken 100% (fallthrough)
+branch  3 taken 0% (throw)
+call    4 returned 100%
+branch  5 taken 100% (fallthrough)
+branch  6 taken 0% (throw)
+call    7 returned 100%
+call    8 returned 100%
+call    9 never executed
+call   10 never executed
+        -:  198:    else{
+    #####:  199:      w << voting_eval(totalVotes, numCand) << "\n";}
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+call    3 never executed
+branch  4 never executed
+branch  5 never executed
+call    6 never executed
+branch  7 never executed
+branch  8 never executed
+call    9 never executed
+call   10 never executed
+        -:  200:
+        -:  201:    // reset my data structures for the next election
+       63:  202:    for(int i = 0; i < 20; ++i){
+branch  0 taken 95%
+branch  1 taken 5% (fallthrough)
+       60:  203:      votes[i] = 0;
+       60:  204:      name[i] = "";}
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0% (throw)
+        -:  205:
+        3:  206:    ballot_list.clear();
+call    0 returned 100%
+        -:  207:
+        -:  208:    // one less case left
+        3:  209:    --cases;
+        -:  210:
+        -:  211:    // Can't have more than 1000 voter cards
+function _GLOBAL__sub_I_name called 1 returned 100% blocks executed 100%
+function _Z41__static_initialization_and_destruction_0ii called 1 returned 100% blocks executed 76%
+        9:  212:    assert(totalVotes < 1001);}}
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0%
+branch  3 taken 100% (fallthrough)
+branch  4 taken 0%
+branch  5 never executed
+branch  6 never executed
+branch  7 taken 0% (fallthrough)
+branch  8 taken 100%
+call    9 never executed
